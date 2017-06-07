@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+Gas Meter Demo
+See readme.txt for more information.
+This work is released under the Creative Commons Zero (CC0) license.
+See http://creativecommons.org/publicdomain/zero/1.0/
+-->
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Gas Meter</title>
+        <link href="gasmeter.css" rel="stylesheet" type="text/css">
+        <script language="javascript" type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
+        <script language="javascript" type="text/javascript" src="../libs/flot/jquery.flot.min.js"></script>
+        <script language="javascript" type="text/javascript" src="../libs/flot/jquery.flot.time.min.js"></script>
+        <script language="javascript" type="text/javascript" src="../libs/flot/jquery.flot.axislabels.min.js"></script>
+        <script language="javascript" type="text/javascript" src="/js/erpc.js"></script>
+        <script type="text/javascript">
+
+        $(function() {
+        var USAGE_UNITS = 1.0; // 1.0 CCF per pulse meter
+        var COST_UNITS = USAGE_UNITS * 1.05 / 100.0; // $1.05 per CCF
+        var CO2_UNITS = USAGE_UNITS * 11.99 / 2000; // 11.99 pounds CO2 per CCF (EIA)
+        var multiplier = USAGE_UNITS;
+        var ylabel = 'CCF';
+        var units = 'usage';
+        var time = 'monthly';
+        var TZ = (new Date()).getTimezoneOffset();
+
+        function monthSeries(data) {
+            var series = [];
+                        var year = Math.floor(data[0] / 12) + 1970;
+            var month = data[0] % 12;
+            for (var i = 1; i < data.length; i++) {
+                var date = new Date(year, month);
+                series.push([date, data[i] * multiplier]);
+                if (--month < 0) {
+                    month += 12;
+                    year--;
+                }
+            }
+            return series;
+        }
+        
+        function epochSeries(data, span) {
+            var series = [];
+                        var start = data[0] * span - (TZ * 60);
+            
+            for (var i = 1; i < data.length; i++) {
+                var date = new Date(start * 1000.0);
+                series.push([date, data[i] * multiplier]);
+                start -= span;
+            }
+            return series;
+        }
+
+        function createPlot(series, span) {
+            // Create the plot
+            var plot = $.plot("#placeholder",
+                [{
+                    data: series,
+                    bars: {
+                        show: true, 
+                        barWidth: 6 * span * 100,
+                        fill: true,
+                        lineWidth: 1,
+                        align: "center",
+                        fillColor: "#039deb"
+                    },
+                    color: "#039deb"
+                }],
+                {
+                    axisLabels: { show: true },
+                    xaxis: {
+                        mode: "time"
+                    },
+                    yaxis: {
+                        axisLabel: ylabel
+                    }
+                }
+            );
+        }
+        
+        // Call ERPC on Esquilo to get current gas data
+        function updatePlot() {
+            erpc("getData", null, function(result) {
+                // Update the plot
+                if (time == 'monthly') {
+                    var span = 3600 * 24 * 31;
+                    createPlot(monthSeries(result.monthly), span);
+                }
+                else if (time == 'daily') {
+                    var span = 3600 * 24;
+                        createPlot(epochSeries(result.daily, span), span);
+                }
+                else {
+                    var span = 3600;
+                    createPlot(epochSeries(result.hourly, span), span);
+                }
+            },
+            function(text) {
+                console.log("error: " + text);
+            });
+        }
+
+        function setTime(value) {
+            time = value;
+            $('.time').removeClass('select');
+            $('#' + value).addClass('select');
+            updatePlot();
+        }
+        
+        function setUnits(value) {
+            units = value;
+            $('.units').removeClass('select');
+            $('#' + value).addClass('select');
+            if (value == 'usage') {
+                multiplier = USAGE_UNITS;
+                ylabel = 'CCF';
+            }
+            else if (value == 'co2') {
+                multiplier = CO2_UNITS;
+                ylabel = 'Tons CO2';
+            }
+            else {
+                multiplier = COST_UNITS;
+                ylabel = "Dollars";
+            }
+            updatePlot();
+        }
+        
+        $('#usage').click(function() {setUnits('usage');});
+        $('#cost').click(function() {setUnits('cost');});
+        $('#co2').click(function() {setUnits('co2');});
+        
+        $('#monthly').click(function() {setTime('monthly');});
+        $('#daily').click(function() {setTime('daily');});
+        $('#hourly').click(function() {setTime('hourly')});
+        
+        $('#' + time).addClass('select');
+        $('#' + units).addClass('select');
+        updatePlot();
+        });
+    </script>
+</head>
+<body>
+        <div id="header">
+                <h1>Gas Meter</h1>
+        </div>
+        <div id="content">
+        <div class="buttonrow">
+            <div id="usage" class="units button"><h2>Usage</h2></div>
+            <div id="cost" class="units button"><h2>Cost</h2></div>
+            <div id="co2" class="units button"><h2>CO2 Emissions</h2></div>
+        </div>
+        <div class="container">
+            <div id="placeholder" class="placeholder"></div>
+        </div>
+        <div class="buttonrow">
+            <div id="monthly" class="time button"><h2>Monthly</h2></div>
+            <div id="daily" class="time button"><h2>Daily</h2></div>
+            <div id="hourly" class="time button"><h2>Hourly</h2></div>
+        </div>
+        </div>
+</body>
+</html>
