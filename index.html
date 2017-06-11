@@ -13,19 +13,21 @@ See http://creativecommons.org/publicdomain/zero/1.0/
   <title>Room Weather Station</title>
   <link rel="stylesheet" href="weather.css" type="text/css" />
   <script type="text/javascript" src="/js/erpc.js"></script>
-	<style>
-		#sliderObj {
-			position: relative;
-			margin-top: 10px;
-			width: 300px;
-			height: 30px;
-		}
-	</style>
-	<script>
-		function doOnLoad() {
+    <script type="text/javascript" src="/js/erpc.js"></script>
+  <style>
+    #sliderObj {
+      position: relative;
+      margin-top: 10px;
+      width: 300px;
+      height: 30px;
+    }
+  </style>
+  <script>
+    var mySlider, mySlider2;
+    function doOnLoad() {
 
 
-		};        
+    };        
         function sweepme() {
             erpc("sweep");
         };
@@ -47,11 +49,11 @@ See http://creativecommons.org/publicdomain/zero/1.0/
               result.humidity.toFixed(1) + " %";
               var fixedHumidity = result.humidity.toFixed(1);
               if(fixedHumidity > 75){
-              	openBlinds();
+                openBlinds();
                 console.log("Blinds Open");
               }
               else{
-              	closeBlinds();
+                closeBlinds();
                 console.log("Blinds Open");
               }
                console.log(result.humidity); 
@@ -62,11 +64,11 @@ See http://creativecommons.org/publicdomain/zero/1.0/
               var fixedTemp = (result.temp * 1.9 + 32);
               console.log(fixedTemp);
               if(fixedTemp > 77){
-              	openCurtain();
+                openCurtain();
                 console.log("Curtains Open");
               }
               else{
-              	closeCurtain();
+                closeCurtain();
                 console.log("Curtains Closed");
               }
           setTimeout(getWeather, 1000);
@@ -77,22 +79,26 @@ See http://creativecommons.org/publicdomain/zero/1.0/
           });
         }
         getWeather();
-	</script>
+  </script>
 </head>
 <body onload="doOnLoad();">
-  <h1>Weather Station</h1>
-  <div class="box">
+<div id="clouds">
+  <div class="cloud x1"></div>
+  <!-- Time for multiple clouds to dance around -->
+  <div class="cloud x2"></div>
+  <div class="cloud x3"></div>
+  <div class="cloud x4"></div>
+  <div class="cloud x5"></div>
+</div>
+  <h1 class="titleHeader">Weather Station</h1>
+  <div class="box1">
     <h3>Temperature</h3>
     <h2 id="temp"></h2>
   </div>
-  <div class="box">
+  <div class="box2">
     <h3>Humidity</h3>
     <h2 id="humidity"></h2>
   </div>
-	<table cellspacing="0" cellpadding="0" border="0">
-        <tr>
-			<td style="padding-right:10px;"><div id="sweep"></div><button onclick="sweepme()">Sweep Me</button></td>
-        </tr>
-	</table>
+  <!--div id="sweep"></div><button onclick="sweepme()">Sweep Servos</button-->
 </body>
 </html>
