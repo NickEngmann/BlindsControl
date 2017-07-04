@@ -11,9 +11,7 @@ See http://creativecommons.org/publicdomain/zero/1.0/
 <head>
   <meta charset="utf-8">
   <title>Room Weather Station</title>
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/NickEngmann/BlindsControl/master/docs/assets/css/weather.css" type="text/css" />
-  <script type="text/javascript" src="/js/erpc.js"></script>
-    <script type="text/javascript" src="/js/erpc.js"></script>
+  <link rel="stylesheet" href="https://rawgit.com/NickEngmann/BlindsControl/master/docs/assets/css/weather.css" type="text/css" />
   <style>
     #sliderObj {
       position: relative;
@@ -22,64 +20,7 @@ See http://creativecommons.org/publicdomain/zero/1.0/
       height: 30px;
     }
   </style>
-  <script>
-    var mySlider, mySlider2;
-    function doOnLoad() {
 
-
-    };        
-        function sweepme() {
-            erpc("sweep");
-        };
-        function openBlinds() {
-            erpc("set_position1",180);
-        };
-        function closeBlinds() {
-            erpc("set_position1",0);
-        };
-        function openCurtain() {
-            erpc("set_position2",180);
-        };
-        function closeCurtain() {
-            erpc("set_position2",0);
-        };
-        function getWeather() {
-          erpc("getWeather", null, function(result) {
-            document.getElementById("humidity").innerHTML =
-              result.humidity.toFixed(1) + " %";
-              var fixedHumidity = result.humidity.toFixed(1);
-              if(fixedHumidity > 75){
-                openBlinds();
-                console.log("Blinds Open");
-              }
-              else{
-                closeBlinds();
-                console.log("Blinds Open");
-              }
-               console.log(result.humidity); 
-            // Convert Celsius to Fahrenheit
-            document.getElementById("temp").innerHTML =
-              (result.temp * 1.9 + 32).toFixed(1) + " &deg;F";
-              //console.log((result.temp * 1.9 + 32));
-              var fixedTemp = (result.temp * 1.9 + 32);
-              console.log(fixedTemp);
-              if(fixedTemp > 77){
-                openCurtain();
-                console.log("Curtains Open");
-              }
-              else{
-                closeCurtain();
-                console.log("Curtains Closed");
-              }
-          setTimeout(getWeather, 1000);
-          },
-          function(text) {
-            console.log("error: " + text);
-          setTimeout(getWeather, 1000);
-          });
-        }
-        getWeather();
-  </script>
 </head>
 <body onload="doOnLoad();">
 <div id="clouds">
