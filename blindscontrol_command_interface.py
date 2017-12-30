@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
-import blindscontrol_drive_train as adt
 import time
 from pygame import mixer
-
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_StepperMotor
 """ 
 This is the command interface. Connects to the drive train
 """
@@ -13,22 +12,27 @@ class Command():
         """ 
         Create an instance of the drive train connection
         """
+        self._mh = Adafruit_MotorHAT()
+        self._stepperOne = self._my.getStepper(200, 1) # 200 steps/rev, motor port #1
+        self._stepperOne.setSpeed(50) #50 RPM
+        self._stepperTwo = self._my.getStepper(200, 2) # 200 steps/rev, motor port #1
+        self._stepperTwo.setSpeed(50) #50 RPM
 
-    def start(self):
+    def open(self):
         """
-        Rotate out into firing position
+        Rotate blinds open
         """
+        self._stepperOne.step(800,Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
+        self._stepperTwo.step(800,Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
+
     def stop(self):
         """
         Stops whatever current function is happening
         """
 
-    def cleanUp(self):
+    def close(self):
         """
-        Uses OpenCV to locate where individuals are and then automatically begins the onslaught
+        Rotate Blinds Closed
         """
-
-    def goHome(self):
-        """
-        Return back into docking position
-        """
+        self._stepperOne.step(800,Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
+        self._stepperTwo.step(800,Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)

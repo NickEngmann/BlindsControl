@@ -64,10 +64,10 @@ class Active(State):
     The state which indicates the device is currently awake and active
     """
     def on_event(self, event):
-        if event['command'] == 'cleanUp':
-            return cleanUp()
-        elif event['command'] == 'goHome':
-            return goHome()
+        if event['command'] == 'start':
+            return start()
+        elif event['command'] == 'close':
+            return close()
         elif event['command'] == 'stop':
             return Stop()
 
@@ -88,49 +88,32 @@ class Stop(State):
         self._blindscontrol_command_interface.stop()
         return Standby()
      
-class goHome(State):
+class open(State):
     """ 
-    The state when the blindscontrol is returning
+    The state when the the device is about to start 'opening'
     """
 
     def on_event(self, event):
-        # Do goHome, reset to default state and then return to standby
-        print('blindscontrol is moving resetting')
-        self._blindscontrol_command_interface.goHome()
+        # Do open, reset to default state and then return to standby
+        print('blindscontrol is opening')
+        self._blindscontrol_command_interface.start()
         resetStatus('active')
         self._blindscontrol_state._started_at = resetTime()
         return Active()
 
-class cleanUp(State):
+class close(State):
     """
-    The state when the device is about to start 'cleaning'
+    The state when the device is about to start 'closing'
     """
 
     def on_event(self, event):
-        # Do cleanUp, reset to default state and then return to standby
-        print('blindscontrol is starting to clean up')
+        # Do closing, reset to default state and then return to standby
+        print('blindscontrol is closing')
         self._blindscontrol_command_interface.cleanUp()
-        resetStatus('cleaning')
+        resetStatus('close')
         self._blindscontrol_state._started_at = resetTime()
-        return cleaning()
+        return Active()
 
-class cleaning(State):
-    """
-    The state when the device is currently in the process of cleaning
-    """
-
-    def on_event(self, event):
-        print('Cleaning')
-        if event['command'] == 'goHome':
-            return goHome()
-        elif event['command'] == 'stop':
-            return Stop()
-        time_passed = datetime.datetime.utcnow() - self._blindscontrol_state._started_at
-        if event['command'] == 'goHome' or time_passed.total_seconds() > 30:
-            resetStatus('standby')
-            self._blindscontrol_command_interface.stop()
-            return Standby()
-        return cleaning()
 
 class StateMachine(object):
     """ 
