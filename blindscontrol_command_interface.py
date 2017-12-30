@@ -22,8 +22,8 @@ class Command():
         """
         Rotate blinds open
         """
-        self._stepperOne.step(800,Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
-        self._stepperTwo.step(800,Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
+        self._stepperOne.step(800,Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
+        self._stepperTwo.step(800,Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
 
     def stop(self):
         """
@@ -34,5 +34,5 @@ class Command():
         """
         Rotate Blinds Closed
         """
-        self._stepperOne.step(800,Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
-        self._stepperTwo.step(800,Adafruit_MotorHAT.BACKWARD, Adafruit_MotorHAT.SINGLE)
+        self._stepperOne.step(800,Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
+        self._stepperTwo.step(800,Adafruit_MotorHAT.FORWARD, Adafruit_MotorHAT.SINGLE)
