@@ -25,4 +25,4 @@ python3 blindscontrol_controller_interface.py
 ## Different Alexa Commands Supported:
 
 ## 3D Model
-![3DModel](https://github.com/NickEngmann/BlindsControl/blob/master/model/3Dmodel.png)
+![3DModel](https://github.com/NickEngmann/BlindsControl/blob/master/model/3DModel.png)
