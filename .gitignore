@@ -3,3 +3,4 @@ __pycache__
 config.json
 !.zip
 node_modules
+*.zip

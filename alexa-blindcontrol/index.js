@@ -1,7 +1,7 @@
 'use strict';
 var Alexa = require('alexa-sdk');
 var firebase = require('firebase');
-const APP_ID = "amzn1.ask.skill.54bd94d9-34d5-47a1-8b98-54e403c97dc3";  // Your app ID.
+const APP_ID = "amzn1.ask.skill.506c8b3c-71e4-408e-8859-bf987e2a1ab2";  // Your app ID.
 var slotType = '';
 var nameValue = '';
 
@@ -48,29 +48,27 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     const sessionAttributes = {};
     const cardTitle = 'Welcome';
-    const speechOutput = 'blindscontrol is awake and armed ' +
-        'What shall we do?';
+    const speechOutput = 'Blind Control is ready ';
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    const repromptText = 'blindscontrol is awake and armed ' +
-        'What shall we do?';
+    const repromptText = 'Blind Control is ready ';
     const shouldEndSession = false;
 
     callback(sessionAttributes,
         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
-function cleanUp(callback, database) {
-    const cardTitle = 'Clean Up';
+function open(callback, database) {
+    const cardTitle = 'Opening';
     let repromptText = '';
     let sessionAttributes = {};
     const shouldEndSession = false;
-    let speechOutput = 'Cleaning up... may god help us all';
+    let speechOutput = 'Opening';
 
     var today = new Date();
     let time = today.toLocaleString();
     database.ref("status/").update({
-        command: 'cleanUp',
+        command: 'open',
         timestamp: time
     },() => { 
         callback(sessionAttributes,
@@ -78,17 +76,17 @@ function cleanUp(callback, database) {
     });
 }
 
-function goHome(callback, database) {
-    const cardTitle = 'Going Home';
+function close(callback, database) {
+    const cardTitle = 'Closing';
     let repromptText = '';
     let sessionAttributes = {};
     const shouldEndSession = false;
-    let speechOutput = 'Disarmed';
+    let speechOutput = 'Closing';
 
     var today = new Date();
     let time = today.toLocaleString();
     database.ref("status/").update({
-        command: 'goHome',
+        command: 'close',
         timestamp: time
     },() => { 
         callback(sessionAttributes,
@@ -101,7 +99,7 @@ function stop(callback, database) {
     let repromptText = '';
     let sessionAttributes = {};
     const shouldEndSession = false;
-    let speechOutput = 'Haulting all assault';
+    let speechOutput = 'Haulting';
 
     var today = new Date();
     let time = today.toLocaleString();
@@ -117,7 +115,7 @@ function stop(callback, database) {
 function handleSessionEndRequest(callback) {
     //Saying Goodbye once a session ends
     const cardTitle = 'Session Ended';
-    const speechOutput = 'blindscontrol is tired and is going to go back to sleep';
+    const speechOutput = 'Goodbye';
     // Setting this to true ends the session and exits the skill.
     const shouldEndSession = true;
 
@@ -154,10 +152,10 @@ function onIntent(intentRequest, session, database, callback) {
     // Dispatch to your skill's intent handlers
     if (intentName === 'AMAZON.HelpIntent') {
         getWelcomeResponse(callback);
-    } else if (intentName === 'CleanUp') {
-        cleanUp(callback, database);
-    } else if (intentName === 'GoHome') {
-        goHome(callback, database);
+    } else if (intentName === 'Open') {
+        open(callback, database);
+    } else if (intentName === 'Close') {
+        close(callback, database);
     } else if (intentName === 'Stop') {
         stop(callback, database);
     } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
