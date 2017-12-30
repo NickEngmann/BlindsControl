@@ -13,9 +13,9 @@ class Command():
         Create an instance of the drive train connection
         """
         self._mh = Adafruit_MotorHAT()
-        self._stepperOne = self._my.getStepper(200, 1) # 200 steps/rev, motor port #1
+        self._stepperOne = self._mh.getStepper(200, 1) # 200 steps/rev, motor port #1
         self._stepperOne.setSpeed(50) #50 RPM
-        self._stepperTwo = self._my.getStepper(200, 2) # 200 steps/rev, motor port #1
+        self._stepperTwo = self._mh.getStepper(200, 2) # 200 steps/rev, motor port #1
         self._stepperTwo.setSpeed(50) #50 RPM
 
     def open(self):
