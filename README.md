@@ -12,6 +12,15 @@ Control the blinds in your room using Raspberry and Stepper Motors!
 pip install python-firebase
 pip install requests
 ```
+Setup I2C on your Raspberry Pi
+
+https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
+
+Install the Adafruit stepper motor HAT library.
+
+```bash
+sudo pip install git+https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library
+```
 
 ## Running
 ```bash
