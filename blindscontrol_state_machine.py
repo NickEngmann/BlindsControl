@@ -54,7 +54,6 @@ class Standby(State):
     def on_event(self, event):
         if event['command'] != 'standby':
             # if going to active mode, turn on safe mode functionality
-            self._blindscontrol_command_interface.start()
             self._blindscontrol_state._started_at = resetTime()
             return Active()
         return self
@@ -64,8 +63,8 @@ class Active(State):
     The state which indicates the device is currently awake and active
     """
     def on_event(self, event):
-        if event['command'] == 'start':
-            return start()
+        if event['command'] == 'open':
+            return open()
         elif event['command'] == 'close':
             return close()
         elif event['command'] == 'stop':
