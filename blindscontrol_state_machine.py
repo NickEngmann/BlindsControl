@@ -109,7 +109,7 @@ class close(State):
         # Do closing, reset to default state and then return to standby
         print('blindscontrol is closing')
         self._blindscontrol_command_interface.close()
-        resetStatus('close')
+        resetStatus('active')
         self._blindscontrol_state._started_at = resetTime()
         return Active()
 
