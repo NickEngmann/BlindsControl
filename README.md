@@ -1,14 +1,24 @@
 # Blinds Control
-Control the blinds in your room using Esquilo and Servos!
+Control the blinds in your room using Raspberry and Stepper Motors!
 
-![Printer](https://github.com/NickEngmann/BlindsControl/blob/master/imgs/1.jpg)
+![Hardware](https://github.com/NickEngmann/BlindsControl/blob/raspberrypi/img/1.jpg)
 
 ## Video Example
 (TBD) </br>
 
-## Instructions
-Load the code onto the Esquilo board and run web_servo.nut
+## Installation
 
-## Helpful links:
-This was my first attempt at using the esquilo development board. Esquilo has a unique development environment, specifically for IoT because all the development is done in a web IDE hosted on the board. Incase you are interested in doing a project using the esquilo development environment, here is a link to their documentation: </br>
-https://www.esquilo.io/docs/
+```bash
+pip install python-firebase
+pip install requests
+```
+
+## Running
+```bash
+python3 blindscontrol_controller_interface.py
+```
+
+## Different Alexa Commands Supported:
+
+## 3D Model
+TODO

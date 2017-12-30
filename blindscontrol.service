@@ -1,0 +1,13 @@
+[Unit]
+Description=BlindsControl Service
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+WorkingDirectory=/home/pi/Desktop/BlindsControl/
+Type=idle
+User=pi
+ExecStart=/usr/bin/python /home/pi/Desktop/BlindsControl/blindscontrol_controller_interface.py > /home/pi/Desktop/blindscontrol.log 2>&1
+
+[Install]
+WantedBy=multi-user.target

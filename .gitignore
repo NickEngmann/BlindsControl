@@ -1,0 +1,5 @@
+.vscode
+__pycache__
+config.json
+!.zip
+node_modules
