@@ -71,8 +71,8 @@ class Active(State):
             return Stop()
 
         time_passed = datetime.datetime.utcnow() - self._blindscontrol_state._started_at
-        # if over 200 seconds have passed, place back in passive mode
-        if time_passed.total_seconds() > 200:
+        # if over 60 seconds have passed, place back in passive mode
+        if time_passed.total_seconds() > 60:
             resetStatus('standby')
             self._blindscontrol_command_interface.stop()
             return Standby()
