@@ -1,6 +1,9 @@
 # Blinds Control
-Control the blinds in your room using Raspberry and Stepper Motors!
-
+Control the blinds in your room using Raspberry and Stepper Motors!</br>
+Necessary Hardware:</br>
+Raspberry Pi </br>
+Provided 3D Model located in "model" folder </br>
+<a href="https://www.amazon.com/Stepper-Bipolar-4-lead-Connector-Printer/dp/B00PNEQKC0/ref=sr_1_4?ie=UTF8&qid=1514777861&sr=8-4&keywords=nema+17" target="__blank">Nema 17</a>
 <!-- ![Hardware](https://github.com/NickEngmann/BlindsControl/blob/raspberrypi/img/1.jpg) -->
 
 ## Video Example
