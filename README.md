@@ -30,7 +30,13 @@ sudo pip install git+https://github.com/adafruit/Adafruit-Motor-HAT-Python-Libra
 Setup I2C on your Raspberry Pi: </br>
 https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
 </br>
-Get the Service File Running on Boot: </br>
+Now you are ready to clone the repo on the raspberry pi </br>
+```bash
+cd ~
+git clone https://github.com/NickEngmann/BlindsControl
+```
+
+Then follow the following instructions to take the blindscontrol.service file and enable it with systemd </br>
 https://www.raspberrypi-spy.co.uk/2015/10/how-to-autorun-a-python-script-on-boot-using-systemd/
 </br>
 
