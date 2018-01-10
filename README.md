@@ -110,7 +110,7 @@ License
 ============
 The MIT License
 
-Copyright (c) 2004-2017 Quod Certamine
+Copyright (c) 2004-2018 Quod Certamine
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
