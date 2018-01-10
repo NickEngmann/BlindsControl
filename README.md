@@ -66,7 +66,7 @@ Alexa Integration
 ============
 Go to the alexa directory and install node dependencies.
 ```bash
-cd alexa-icarus
+cd alexa-blindcontrol
 npm install
 ```
 
