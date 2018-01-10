@@ -5,15 +5,14 @@ Click the image below to watch the video. </br>
 
 Table of Contents
 ============
-[Instructions](#instructions)
-[Necessary Hardware](#necessary-hardware)
-[Hardware Build](#hardware-build)
-[Software Install](#software-install)
-[Alexa Integration](#alexa-integration)
-[Running](#running)
-[Model](#model)
-[License](#license)
-
+* [Instructions](#instructions)
+* [Necessary Hardware](#necessary-hardware)
+* [Hardware Build](#hardware-build)
+* [Software Install](#software-install)
+* [Alexa Integration](#alexa-integration)
+* [Running](#running)
+* [Model](#model)
+* [License](#license)
 
 Instructions
 ============
@@ -65,7 +64,7 @@ After setting up the service file your Raspberry Pi should automatically start b
 
 Alexa Integration
 ============
-Install node dependencies
+Go to the alexa directory and install node dependencies.
 ```bash
 cd alexa-icarus
 npm install
@@ -83,8 +82,13 @@ config = {
     messagingSenderId: ""
   }
 ```
-*** TODO: include instructions on how to set up Amazon Lamda service *** </br>
+Save all items in the folder as a .zip file.
 
+Follow the following instructions from Amazon to set up your own Lambda service and nodejs skill:</br>
+https://developer.amazon.com/alexa-skills-kit/alexa-skill-quick-start-tutorial </br>
+Load the .zip file into your lambda service </br>
+
+Add the following command configurations to your Alexa skill in the Alexa skill developer portal </br>
 ## Different Alexa Commands Supported:
 "Alexa open BlindsControl" </br>
 "Open blinds" </br>
@@ -97,7 +101,7 @@ python3 blindscontrol_controller_interface.py
 ```
 
 
-3D Model
+Model
 ============
 ![3DModel](https://github.com/NickEngmann/BlindsControl/blob/master/model/3DModel.png)
 
