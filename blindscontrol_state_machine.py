@@ -96,9 +96,7 @@ class open(State):
         # Do open, reset to default state and then return to standby
         print('blindscontrol is opening')
         self._blindscontrol_command_interface.open()
-        resetStatus('active')
-        self._blindscontrol_state._started_at = resetTime()
-        return Active()
+        return Stop()
 
 class close(State):
     """
@@ -109,9 +107,7 @@ class close(State):
         # Do closing, reset to default state and then return to standby
         print('blindscontrol is closing')
         self._blindscontrol_command_interface.close()
-        resetStatus('active')
-        self._blindscontrol_state._started_at = resetTime()
-        return Active()
+        return Stop()
 
 
 class StateMachine(object):

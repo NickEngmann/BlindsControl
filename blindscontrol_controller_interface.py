@@ -15,6 +15,7 @@ blindscontrol_state = istm.StateMachine(blindscontrol_alexa._state)
 
 while(1):
     # polls the update_state and starts events
+    time.sleep(3)
     status = blindscontrol_alexa.update_state()
     blindscontrol_state.on_event(status)
 
