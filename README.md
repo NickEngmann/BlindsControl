@@ -1,4 +1,6 @@
 # Blinds Control
+
+![Tests](https://github.com/NickEngmann/BlindsControl/actions/workflows/test.yml/badge.svg)
 Control the blinds in your room using Raspberry and Stepper Motors!</br>
 Click the image below to watch the video. </br>
 [![Watch the video](https://github.com/NickEngmann/BlindsControl/blob/master/img/youtube.png)](https://youtu.be/fzvNv4QeY4A)
@@ -130,3 +132,9 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Running Tests
+
+```bash
+pytest
+```
