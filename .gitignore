@@ -4,3 +4,10 @@ config.json
 !.zip
 node_modules
 *.zip
+
+# Build artifacts
+*.pyc
+__pycache__/
+*.o
+*.so
+.pytest_cache/
