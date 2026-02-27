@@ -4,3 +4,15 @@ config.json
 !.zip
 node_modules
 *.zip
+
+# Auto-added by Marisol pipeline
+*.pyc
+.pytest_cache/
+*.o
+*.so
+.env
+debug_*.py
+.cache/
+dist/
+build/
+*.egg-info/
