@@ -140,4 +140,6 @@ class StateMachine(object):
         next_state._blindscontrol_command_interface = self._state._blindscontrol_command_interface
 
         # passes necessary information to the next state
+        if next_state is None:
+            raise ValueError("Next state cannot be None")
         self._state = next_state
