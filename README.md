@@ -1,7 +1,117 @@
 # Blinds Control
-Control the blinds in your room using Raspberry and Stepper Motors!</br>
+
+Control the blinds in your room using Raspberry Pi and Stepper Motors!</br>
 Click the image below to watch the video. </br>
-[![Watch the video](https://github.com/NickEngmann/BlindsControl/blob/master/img/youtube.png)](https://youtu.be/fzvNv4QeY4A)
+[![Watch the video](https://github.com/NickEngmann/BlindsCont
+
+## Installation
+
+### Prerequisites
+- Raspberry Pi (tested on Raspberry Pi 3/4)
+- Python 3.8+
+- Stepper motor and driver compatible with Raspberry Pi GPIO
+- Firebase project for Alexa integration
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/NickEngmann/BlindsControl.git
+cd BlindsControl
+```
+
+2. Install dependencies:
+```bash
+pip install --no-cache-dir pytest fake-rpi Pillow
+pip install pytest
+```
+
+3. Configure GPIO pins in `blindscontrol_controller_interface.py` according to your hardware setup
+
+4. Set up Firebase credentials and Alexa skill as described in the project structure section
+
+## Usage
+
+### Running the Controller
+
+1. Ensure your Raspberry Pi is properly connected to the stepper motor driver
+2. Run the main controller:
+```bash
+python blindscontrol_controller_interface.py
+```
+
+3. The controller will:
+   - Initialize the state machine
+   - Connect to Firebase for real-time updates
+   - Poll for state changes every 3 seconds
+   - Update the blind position based on events
+
+### State Machine
+
+The system uses a state machine to manage blind operations:
+- `OPEN`: Blinds fully open
+- `CLOSED`: Blinds fully closed
+- `OPENING`: Blinds moving up
+- `CLOSING`: Blinds moving down
+- `STOPPED`: Blinds stationary
+
+### Alexa Integration
+
+1. Set up an Alexa skill with Firebase Smart Home skill
+2. Link your Firebase project in the Alexa developer console
+3. Use voice commands like:
+   - "Alexa, open the blinds"
+   - "Alexa, close the blinds"
+   - "Alexa, set blinds to 50%"
+
+## Testing
+
+Run the test suite using pytest:
+
+```bash
+python -m pytest tests/ -v
+```
+
+### Hardware Mocking
+
+The project uses `fake-rpi` to mock Raspberry Pi GPIO operations for testing:
+
+```bash
+pip install fake-rpi
+```
+
+## Project Structure
+
+```
+BlindsControl/
+├── blindscontrol_controller_interface.py  # Main controller script
+├── blindscontrol_state_machine.py         # State machine implementation
+├── blindscontrol_alexa_interface.py       # Firebase/Alexa integration
+├── blindscontrol_command_interface.py     # Command processing
+├── tests/                                 # Test files
+├── requirements.txt                       # Python dependencies
+└── README.md                              # This file
+```
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Acknowledgements
+
+- [Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/)
+- [Alexa Skills Kit](https://developer.amazon.com/alexa)
+- [Firebase](https://firebase.google.com/)rol/blob/master/img/youtube.png)](https://youtu.be/fzvNv4QeY4A)
 
 Table of Contents
 ============
